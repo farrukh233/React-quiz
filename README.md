@@ -10,5 +10,5 @@
 ## Ссылка на деплой: https://majestic-kitsune-10babe.netlify.app/
 
 ## Запуск:
-1 yarn
-2 yarn dev
+1. yarn
+2. yarn dev
