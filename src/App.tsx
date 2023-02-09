@@ -1,7 +1,14 @@
 import { useState } from "react";
+import { FC } from "react";
 import "./index.scss";
 
-const questions = [
+interface Question {
+  title: string;
+  variants: string[];
+  correct: number;
+}
+
+const questions: Question[] = [
   {
     title: "У кого был третий глаз?",
     variants: ["Гаара", "Мадара", "Какаши"],
@@ -19,7 +26,10 @@ const questions = [
   },
 ];
 
-function Result({ correct }) {
+interface IResultProps {
+  correct: number;
+}
+const Result: FC<IResultProps> = ({ correct }) => {
   return (
     <div className='result'>
       <img src='https://cdn-icons-png.flaticon.com/512/2278/2278992.png' />
@@ -31,10 +41,16 @@ function Result({ correct }) {
       </a>
     </div>
   );
+};
+
+interface IGameProps {
+  question: Question;
+  onClickVariant: (index: number) => void;
+  step: number;
 }
 
-function Game({ question, onClickVariant, step }) {
-  const percent = Math.round((step / questions.length) * 100);
+const Game: FC<IGameProps> = ({ question, onClickVariant, step }) => {
+  const percent: number = Math.round((step / questions.length) * 100);
   return (
     <>
       <div className='progress'>
@@ -50,14 +66,14 @@ function Game({ question, onClickVariant, step }) {
       </ul>
     </>
   );
-}
+};
 
 function App() {
   const [step, setStep] = useState(0);
   const question = questions[step];
   const [correct, setCorrect] = useState(0);
 
-  const onClickVariant = index => {
+  const onClickVariant = (index: number) => {
     console.log(step, index);
     setStep(step + 1);
     if (index === question.correct) {
